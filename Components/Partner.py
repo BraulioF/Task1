@@ -4,18 +4,14 @@ import xmlrpc.client
 class ClasePartner():
 
     def ObtenerPartnerID (self, url, db, uid, password):
-        try:
-            models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
-            partners_id = models.execute_kw(db, uid, password,
-                        'res.partner', 'search',
-                        [[['is_company', '=', True],['customer','=',True]]])
+
+        models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
+        partners_id = models.execute_kw(db, uid, password,
+                    'res.partner', 'search',
+                    [[['is_company', '=', True],['customer','=',True]]])
                        
-            return partners_id
-        except xmlrpc.client.Fault :
-            
-            print("credenciales incorrectas")
-            
-            return xmlrpc.client.Error
+        return partners_id
+
 
     def ObtenerPartnerDetalles (self, url, db, uid, password,partners_id):
         models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
